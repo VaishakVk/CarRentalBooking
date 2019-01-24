@@ -1,0 +1,23 @@
+<% include partials/header %>
+<% if(displayMessage) { %>
+	<h3><%=message%></h3>
+<% } %>
+<form action="/offers/addoffer" method="POST">
+	<label for="offerName">Offer</label>
+	<input type="text" name="offerName" id="offerName" autocomplete="off">
+	<label for="offerCode">Offer Code</label>
+	<input type="text" name="offerCode" id="offerCode" autocomplete="off">
+	<label for="couponCode">Coupon Code</label>
+	<input type="text" name="couponCode" id="couponCode" autocomplete="off">
+	<label for="carModelYear">Car Model Year</label>
+	<label for="active">active</label>
+	<select name="active">
+		<% ["Active", "Inactive"].forEach(function(element) { %>
+			<option value="<%= element %>"><%= element %></option>
+		<% }) %>
+	</select>
+	<label for="validTill">Valid Till</label>
+	<input type="date" id="validTill" name="validTill">			
+	<button type="submit">Add Offer</button>
+</form>
+<% include partials/footer %>

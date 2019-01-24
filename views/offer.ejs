@@ -1,0 +1,17 @@
+<%- include partials/header %>
+<h1>Best Offers for You</h1>	
+<% if(offer.length == 0) { %>
+<p>No Offers</p>
+<% } else { %>
+<% for(let offerDetail of offer) { %>
+<div>
+	<p><%= offerDetail.offerName %></p>
+</div>
+<a href="/offers/<%= offerDetail._id %>">
+	<div>
+		<p><%= offerDetail.couponCode %></p>
+		<p>Valid Till <%= offerDetail.validTill %></p>
+	</div>
+</a>
+<% }} %>
+<%- include partials/footer %>

@@ -1,12 +1,12 @@
 <% include partials/header %>
 <h1 class="company-name">Rent a Car</h1>
 <section class="book-now">
-	<form action="" class="book-form" method="POST">
+	<form action="/book" class="book-form" method="POST">
 		<fieldset>
 			<legend>Book now</legend>
-			<input type="text" id="pick-up-location" placeholder="Enter your pickup location">
-			<input type="date" id="pick-up-date">
-			<select name="cars">
+			<input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" autocomplete="off">
+			<input type="date" id="pick-up-date" name="startDate">
+			<select name="duration">
 			  <option value="1">1 month</option>
 			  <option value="2">2 months</option>
 			  <option value="3">3 months</option>

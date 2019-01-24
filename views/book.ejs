@@ -1,0 +1,18 @@
+<%- include partials/header.ejs %>
+<section class="book-now">
+	<form action="/book" class="book-form" method="POST">
+		<fieldset>
+			<legend>Book now</legend>
+			<input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" value=<%=pickUpLocation%>>
+			<input type="date" id="pick-up-date" name="startDate" value=<%=startDate%>>
+			<select name="cars" name="duration" value=<%=duration%>>
+			  <option value="1">1 month</option>
+			  <option value="2">2 months</option>
+			  <option value="3">3 months</option>
+			  <option value="4">4 months</option>
+			</select>
+			<button class="submit">Modify</button>
+		</fieldset>
+	</form>
+</section>
+<%- include partials/footer.ejs %>

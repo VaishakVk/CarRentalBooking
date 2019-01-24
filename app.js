@@ -9,14 +9,7 @@ const app = express();
 
 const bookingRoute = require(path.join(__dirname, "routes", "booking.js"));
 const adminRoute = require(path.join(__dirname, "routes", "admin.js"));
-
-mongoose.connect("mongodb://localhost:27017/car_booking", { useNewUrlParser: true }, function(err){
-	if(err){
-		console.log(err);
-	} else {
-		console.log('Successfully Connected to car_booking');
-	}
-})
+const offerRoute = require(path.join(__dirname, "routes", "offer.js"))
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,7 +17,14 @@ app.use(express.static("public"));
 
 app.use(bookingRoute);
 app.use('/admin', adminRoute);
+app.use(offerRoute);
 
-app.listen(3000, function() {
-	console.log('Listening on port 3000');
-});
+mongoose.connect('mongodb+srv://vaishakvk:Hello123@clusterdb-ohjmw.mongodb.net/CarRentalDB?retryWrites=true', {useNewUrlParser: true}, err => {
+	if(err) {
+		console.log('Error');
+	} else {
+		app.listen(3000, function() {
+			console.log('Listening on port 3000');
+		});		
+	}
+})

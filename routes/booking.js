@@ -6,10 +6,6 @@ router.get('/', function(req, res) {
 	res.render("home");
 });
 
-router.get('/offers', function(req, res) {
-	res.render("offer");
-});
-
 router.get('/models', function(req, res) {
 	res.render("model");
 });
@@ -18,9 +14,9 @@ router.post('/book', function(req, res) {
 	var pickUpLocation = req.body.location;
 	var startDate = req.body.startDate;
 	var duration = req.body.duration;
-	
-	var carsAvailable = Cars.find({});
-	res.render("book");
+	console.log(req.body);
+	// var carsAvailable = Cars.find({});
+	res.render("book", {pickUpLocation: pickUpLocation, startDate: startDate, duration:duration});
 });
 
 module.exports = router;

@@ -1,0 +1,27 @@
+<%- include partials/header.ejs %>
+<% if(displayMessage) { %>
+	<h3><%=message%></h3>
+<% } %>
+<form action="/admin/addcar" method="POST">
+	<label for="carModel">Car Model</label>
+	<input type="text" name="carModel" id="carModel" autocomplete="off">
+	<label for="registrationNumber">Registration Number</label>
+	<input type="text" name="registrationNumber" id="registrationNumber" autocomplete="off">
+	<label for="imageURL">Image URL</label>
+	<input type="text" name="imageURL" id="imageURL" autocomplete="off">
+	<label for="carModelYear">Car Model Year</label>
+	<select name="carModelYear">
+		<% const dt = new Date(); %>
+		<% for(let i=1952; i<=dt.getFullYear(); i++) { %>
+			<option value="<%= i %>" <% if (i==dt.getFullYear()) { %> selected <%}%>><%= i %></option>
+		<% } %>
+	</select>			
+	<label for="carClass">Car Class</label>
+	<select name="carClass">
+		<% ['Bike-upto 150cc', 'Bike-above 150cc', 'Scooter', 'Car-Hatchback', 'Car-Sedan', 'Car-SUV'].forEach(function(element) { %>
+			<option value="<%= element %>"><%= element %></option>
+		<% }) %>
+	</select>			
+	<button type="submit">Add Car</button>
+</form>
+<%- include partials/footer.ejs %> 
