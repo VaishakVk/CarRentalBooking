@@ -21,13 +21,17 @@ exports.postAddOffer = (req, res) => {
 	const couponCode = req.body.couponCode;
 	const active = req.body.active;
 	const validTill = req.body.validTill;
+	const operator = req.body.operator;
+	const couponValue = req.body.couponValue;
 
 	const addOffer = new offer.offerSchema({
 		offerName: offerName ,
 		offerCode: offerCode ,
 		couponCode: couponCode,
 		active: active,
-		validTill: validTill 
+		validTill: validTill ,
+		operator: operator,
+		couponValue: couponValue
 	});
 
 	addOffer.save((err) => {

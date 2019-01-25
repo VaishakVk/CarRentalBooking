@@ -9,10 +9,17 @@
 	<input type="text" name="offerCode" id="offerCode" autocomplete="off">
 	<label for="couponCode">Coupon Code</label>
 	<input type="text" name="couponCode" id="couponCode" autocomplete="off">
-	<label for="carModelYear">Car Model Year</label>
+	<label for="couponValue">Coupon Value</label>
+	<input type="text" name="couponValue" id="couponValue" autocomplete="off">
 	<label for="active">active</label>
 	<select name="active">
 		<% ["Active", "Inactive"].forEach(function(element) { %>
+			<option value="<%= element %>"><%= element %></option>
+		<% }) %>
+	</select>
+	<label for="operator">Operator</label>
+	<select name="operator">
+		<% ["Lumpsum", "Percentage"].forEach(function(element) { %>
 			<option value="<%= element %>"><%= element %></option>
 		<% }) %>
 	</select>
@@ -20,4 +27,5 @@
 	<input type="date" id="validTill" name="validTill">			
 	<button type="submit">Add Offer</button>
 </form>
+<a href="/offers">All Offers</a>
 <% include partials/footer %>

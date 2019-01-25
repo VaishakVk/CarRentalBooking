@@ -4,7 +4,11 @@
 <% } %>
 <form action="/admin/addcar" method="POST">
 	<label for="carModel">Car Model</label>
-	<input type="text" name="carModel" id="carModel" autocomplete="off">
+	<select name="carModel">
+		<% for(let modelDetail of model) { %>
+			<option value="<%= modelDetail.name %>"><%= modelDetail.name %></option>
+		<% } %>
+	</select>			
 	<label for="registrationNumber">Registration Number</label>
 	<input type="text" name="registrationNumber" id="registrationNumber" autocomplete="off">
 	<label for="imageURL">Image URL</label>
@@ -16,12 +20,13 @@
 			<option value="<%= i %>" <% if (i==dt.getFullYear()) { %> selected <%}%>><%= i %></option>
 		<% } %>
 	</select>			
-	<label for="carClass">Car Class</label>
-	<select name="carClass">
-		<% ['Bike-upto 150cc', 'Bike-above 150cc', 'Scooter', 'Car-Hatchback', 'Car-Sedan', 'Car-SUV'].forEach(function(element) { %>
-			<option value="<%= element %>"><%= element %></option>
-		<% }) %>
-	</select>			
+	<label for="procuredOn">Procured On</label>
+	<input type="date" id="procuredOn" name="procuredOn">
+	<!-- <label for="nextServiceDue">Next Service Due</label>
+	<input type="date" id="nextServiceDue" name="nextServiceDue">
+	<label for="lastServiceDate">last Serviced On</label>
+	<input type="date" id="lastServiceDate" name="lastServiceDate">			 -->
 	<button type="submit">Add Car</button>
 </form>
+<a href="/admin/addmodel">Add a Model</a>
 <%- include partials/footer.ejs %> 

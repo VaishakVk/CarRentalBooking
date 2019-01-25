@@ -9,7 +9,10 @@ router.get('/', function(req, res){
 });
 
 router.get('/addcar', carController.getAddCar);
-
 router.post('/addcar', carController.postAddCar);
+
+router.get('/addmodel', carController.getAddModel);
+router.post('/addmodel', carController.postAddModel);
+
 
 module.exports = router;

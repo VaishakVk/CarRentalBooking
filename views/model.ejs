@@ -1,3 +1,23 @@
 <% include partials/header.ejs %>
-
+<h1>Cars</h1>	
+<% if(model.length == 0) { %>
+<p>No Cars available</p>
+<% } else { %>
+<% for(let modelDetail of model) { %>
+<div>
+	<p><%= modelDetail.name %></p>
+	<p><%= modelDetail.modelClass %></p>	
+</div>
+<div>
+	<p><%= modelDetail.pricePerHour %></p>
+	<p><%= modelDetail.seating %></p>	
+</div>
+<div>
+	<p><%= modelDetail.enginePower %></p>
+	<p><%= modelDetail.engineCC %></p>	
+	<p><%= modelDetail.transmission %></p>	
+	<p><%= modelDetail.mileage %></p>	
+</div>
+<a href="">View More Information</a>
+<% }} %>
 <% include partials/footer.ejs %>

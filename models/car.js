@@ -23,6 +23,22 @@ const modelSchema = new schema({
 	pricePerHour: {
 		type: Number,
 		required: true
+	},
+	seating: {
+		type: Number,
+		required: true
+	},
+	transmission: {
+		type: String,
+		required: true
+	},
+	imageURL: {
+		type: String,
+		required: true
+	},
+	mileage: {
+		type: String,
+		required: true
 	}
 })
 
@@ -35,17 +51,18 @@ const carSchema = new schema({
 		type: String,
 		required: true
 	},
-	imageURL: {
-		type: String,
-		required: true
-	},
-	carClass: {
-		type: String,
-		required: true
-	},
 	carModelYear: {
 		type: Number,
-	}
+	},
+	procuredOn: {
+		type: Date,
+	},
+	nextServiceDue: {
+		type: Date,
+	},
+	lastServiceDate: {
+		type: Date,
+	},
 })
 
 exports.carSchema = mongoose.model('Car', carSchema);

@@ -6,9 +6,6 @@ router.get('/', function(req, res) {
 	res.render("home");
 });
 
-router.get('/models', function(req, res) {
-	res.render("model");
-});
 
 router.post('/book', function(req, res) {
 	var pickUpLocation = req.body.location;

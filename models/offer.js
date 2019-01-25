@@ -23,6 +23,15 @@ const offerSchema = new schema({
 	validTill: {
 		type: Date,
 		require: true
+	},
+	operator: {
+		type: String,
+		require: true,
+		enum: ['Lumpsum', 'Percentage']
+	},
+	couponValue: {
+		type: Number,
+		require: true
 	}
 })
 
