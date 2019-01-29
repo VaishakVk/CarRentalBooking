@@ -1,0 +1,13 @@
+<%- include partials/header.ejs %>
+<div>
+	<form action="/login" method="POST">
+		<label for="email">Email</label>
+		<input type="text" name="email" id="email">
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" autocomplete="off">
+		<button type="submit">Login</button>
+	</form>
+
+	<a href="">Forgot Password? Click here to reset</a>
+</div>
+<%- include partials/footer.ejs %>

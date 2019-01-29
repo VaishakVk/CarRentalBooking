@@ -1,0 +1,14 @@
+<%- include partials/header %>
+<h1>All Locations</h1>	
+<% if(location.length == 0) { %>
+<p>No Location</p>
+<% } else { %>
+<% for(let locationDetail of location) { %>
+<div>
+	<p><%= locationDetail.location %></p>
+</div>
+	<div>
+		<p><%= locationDetail.addressLine1 %></p>
+	</div>
+<% }} %>
+<%- include partials/footer %>

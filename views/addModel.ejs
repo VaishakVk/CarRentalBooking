@@ -2,34 +2,39 @@
 <% if(displayMessage) { %>
 	<h3><%=message%></h3>
 <% } %>
-<form action="/admin/addmodel" method="POST">
+ <form action="/admin/<% if (purpose == "edit") { %>editmodel/<%=model._id%><% } else { %>addmodel<% } %>" method="POST">
 	<label for="name">Car Model</label>
-	<input type="text" name="name" id="name" autocomplete="off">
+	<input type="text" name="name" id="name" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.name%><% } %>">
+	<label for="displayName">Display Name</label>
+	<input type="text" name="displayName" id="displayName" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.displayName%><% } %>">
 	<label for="carClass">Class</label>
 	<select name="carClass" id="carClass">
 		<% ['Bike-upto 150cc', 'Bike-above 150cc', 'Scooter', 'Car-Hatchback', 'Car-Sedan', 'Car-SUV'].forEach(function(element) { %>
-			<option value="<%= element %>"><%= element %></option>
+			<option value="<%= element %>" <% if ((purpose == "edit" || purpose == "add-edit") && element == model.modelClass) { %>selected <% } %>><%= element %></option>
 		<% }) %>
 	</select>
 	<label for="engineCC">Engine(cc)</label>
-	<input type="text" name="engineCC" id="engineCC" autocomplete="off">
+	<input type="text" name="engineCC" id="engineCC" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit" ) { %><%=model.engineCC%><% } %>">
 	<label for="enginePower">Engine Power(bhp)</label>
-	<input type="text" name="enginePower" id="enginePower" autocomplete="off">
+	<input type="text" name="enginePower" id="enginePower" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.enginePower%><% } %>">
 	<label for="pricePerHour">Price(per hour)</label>
-	<input type="text" id="pricePerHour" name="pricePerHour">
+	<input type="text" id="pricePerHour" name="pricePerHour" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.pricePerHour%><% } %>">
 	<label for="seating">Seating Capacity</label>
-	<input type="text" id="seating" name="seating">
+	<input type="text" id="seating" name="seating" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.seating%><% } %>">
 	<label for="imageURL">Image URL</label>
-	<input type="text" id="imageURL" name="imageURL">			
+	<input type="text" id="imageURL" name="imageURL" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.imageURL%><% } %>">			
 	<label for="transmission">Transmission</label>
 	<select name="transmission" id="transmission">
 		<% ['Automatic', 'Manual', 'Semi Automatic'].forEach(function(element) { %>
-			<option value="<%= element %>"><%= element %></option>
+			<option value="<%= element %>" <% if ((purpose == "edit" || purpose == "add-edit") && element == model.transmission) { %>selected <% } %>><%= element %></option>
 		<% }) %>
 	</select>
 	<label for="mileage">Mileage</label>
-	<input type="text" id="mileage" name="mileage">			
-	<button type="submit">Add Model</button>
+	<input type="text" id="mileage" name="mileage" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.mileage%><% } %>">	
+	<% if (purpose == "edit" || purpose == "add-edit") { %>
+                <input type="hidden" value="<%= model._id %>" name="Id">
+    <% } %>		
+	<button type="submit"><% if (purpose == "edit") { %>Update Model<% } else { %> Add Model <%}%></button>
 </form>
 <a href="/admin/addcar">Add a Car</a>
 <a href="/models">All Models</a>

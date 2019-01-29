@@ -1,0 +1,26 @@
+<%- include partials/header.ejs %>
+<% if(displayMessage) { %>
+	<h3><%=message%></h3>
+<% } %>
+<form action="/admin/addlocation" method="POST">
+	<label for="location">Location</label>
+	<input type="text" name="location" id="location" autocomplete="off">
+	<label for="addressLine1">Address Line 1</label>
+	<input type="text" name="addressLine1" id="addressLine1" autocomplete="off">
+	<label for="addressLine2">Address Line 2</label>
+	<input type="text" name="addressLine2" id="addressLine2" autocomplete="off">
+	<label for="addressLine3">Address Line 3</label>
+	<input type="text" name="addressLine3" id="addressLine3" autocomplete="off">
+	<label for="city">City</label>
+	<input type="text" name="city" id="city" autocomplete="off">
+	<label for="state">State</label>
+	<input type="text" name="state" id="state" autocomplete="off">
+	<label for="country">Country</label>
+	<input type="text" name="country" id="country" autocomplete="off">
+	<label for="pincode">Pincode</label>
+	<input type="text" name="pincode" id="pincode" autocomplete="off">
+	<label for="contactNumber">Contact</label>
+	<input type="text" name="contactNumber" id="contactNumber" autocomplete="off">
+	<button type="submit">Add Location</button>
+</form>
+<%- include partials/footer.ejs %> 

@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
-
 const schema = mongoose.Schema
 
 const modelSchema = new schema({
 	name: {
+		type: String,
+		required: true,
+		index: { unique: true }
+	},
+	displayName: {
 		type: String,
 		required: true
 	},
@@ -43,13 +47,14 @@ const modelSchema = new schema({
 })
 
 const carSchema = new schema({
-	carName: {
+	carModelName: {
 		type: String,
 		required: true
 	},
 	registrationNumber: {
 		type: String,
-		required: true
+		required: true,
+		index: { unique: true }
 	},
 	carModelYear: {
 		type: Number,

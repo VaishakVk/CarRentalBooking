@@ -9,7 +9,8 @@ const offerSchema = new schema({
 	},
 	offerCode: {
 		type: String,
-		require: true
+		require: true,
+		index: { unique: true }
 	},
 	couponCode: {
 		type: String,

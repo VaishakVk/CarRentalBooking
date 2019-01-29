@@ -19,5 +19,9 @@
 	<p><%= modelDetail.mileage %></p>	
 </div>
 <a href="">View More Information</a>
+<a href="/admin/editmodel/<%=modelDetail._id%>">Edit</a>
+<form action="/admin/deletemodel/<%=modelDetail._id%>" method = "POST">
+	<button type="submit">Delete</button>
+</form>
 <% }} %>
 <% include partials/footer.ejs %>

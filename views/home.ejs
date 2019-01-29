@@ -4,7 +4,14 @@
 	<form action="/book" class="book-form" method="POST">
 		<fieldset>
 			<legend>Book now</legend>
-			<input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" autocomplete="off">
+			<!-- <input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" autocomplete="off"> -->
+			<input type="text" list="datalist" > 
+			<datalist id="datalist"> 
+				<option value="Kalyan Nagar"></option> 
+				<option value="Marathahalli"></option> 
+				<option value="Indhira Nagar "></option> 
+				<option value="Koramangala"></option> 
+			</datalist> 
 			<input type="date" id="pick-up-date" name="startDate">
 			<select name="duration">
 			  <option value="1">1 month</option>
