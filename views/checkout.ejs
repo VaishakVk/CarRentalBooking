@@ -1,20 +1,20 @@
 <%- include partials/header.ejs %>
 <div>
 	<p>Your order details</p>
-	<p>Start Date - <%=startDate%></p>
+	<p>Start Date - <%=startDate.toString()%></p>
 	<p>Pick up Location - <%=pickUpLocation%></p>
 	<p>Duration - <%=duration%></p>
 
 	<form action="/coupon" method="POST">
 		<label for="couponCode">Coupon Code</label>
-		<input type="text" name="couponCode" value=<%=couponCode%>>
+		<input type="text" name="couponCode" value="<%=couponCode%>">
 		<button type="submit">Apply Coupon</button>
-		<input type="hidden" name="modelId" value=<%=modelDetail._id%>>
-		<input type="hidden" name="vehiclesInUse" value=<%=vehiclesInUse%>>
-		<input type="hidden" name="startDate" value=<%=startDate%>>
-		<input type="hidden" name="pickUpLocation" value=<%=pickUpLocation%>>
-		<input type="hidden" name="duration" value=<%=duration%>>
-		<input type="hidden" name="modifiedPrice" value=<%=modifiedPrice%>>
+		<input type="hidden" name="modelId" value="<%=modelDetail.name%>">
+		<input type="hidden" name="vehiclesInUse" value="<%=vehiclesInUse%>">
+		<input type="hidden" name="startDate" value="<%=startDate%>">
+		<input type="hidden" name="pickUpLocation" value="<%=pickUpLocation%>">
+		<input type="hidden" name="duration" value="<%=duration%>">
+		<input type="hidden" name="modifiedPrice" value="<%=modifiedPrice%>">
 	</form>
 
 	<% if(message) { %>
@@ -28,12 +28,12 @@
 
 	<form action="/confirm" method="POST">
 		<button type="submit">Confirm Booking</button>
-		<input type="hidden" name="modelId" value=<%=modelDetail._id%>>
-		<input type="hidden" name="vehiclesInUse" value=<%=vehiclesInUse%>>
-		<input type="hidden" name="startDate" value=<%=startDate%>>
-		<input type="hidden" name="pickUpLocation" value=<%=pickUpLocation%>>
-		<input type="hidden" name="duration" value=<%=duration%>>
-		<input type="hidden" name="modifiedPrice" value=<%=modifiedPrice%>>
+		<input type="hidden" name="modelId" value="<%=modelDetail.name%>">
+		<input type="hidden" name="vehiclesInUse" value="<%=vehiclesInUse%>">
+		<input type="hidden" name="startDate" value="<%=startDate%>">
+		<input type="hidden" name="pickUpLocation" value="<%=pickUpLocation%>">
+		<input type="hidden" name="duration" value="<%=duration%>">
+		<input type="hidden" name="modifiedPrice" value="<%=modifiedPrice%>">
 	</form>
 </div>
 <%- include partials/footer.ejs %> 

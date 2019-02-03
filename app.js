@@ -17,15 +17,15 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.use(bookingRoute);
+app.use(bookingRoute); 
 app.use('/admin', adminRoute);
 app.use(offerRoute);
 app.use(modelRoute);
-app.use(authRoute);
+app.use(authRoute); 
 
 mongoose.connect('mongodb+srv://vaishakvk:Hello123@clusterdb-ohjmw.mongodb.net/CarRentalDB?retryWrites=true', {useNewUrlParser: true}, err => {
 	if(err) {
-		console.log('Error');
+		console.log('Error connecting to DB');
 	} else {
 		app.listen(3000, function() {
 			console.log('Listening on port 3000');

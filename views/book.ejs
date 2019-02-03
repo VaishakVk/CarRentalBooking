@@ -3,13 +3,22 @@
 	<form action="/book" class="book-form" method="POST">
 		<fieldset>
 			<legend>Book now</legend>
-			<input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" value=<%=pickUpLocation%>>
-			<input type="date" id="pick-up-date" name="startDate" value=<%=startDate%>>
-			<select name="cars" name="duration" value=<%=duration%>>
-			  <option value="1">1 month</option>
-			  <option value="2">2 months</option>
-			  <option value="3">3 months</option>
-			  <option value="4">4 months</option>
+			<!-- <input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" value="<%=pickUpLocation%>"> -->
+			<input type="text" list="datalist" name = "pickUpLocation" autocomplete="off" value="<%= pickUpLocation%>"> 
+			<datalist id="datalist"> 
+				<% for(let i of locations) {%>
+				<option value="<%= i.displayName%>" <%if(i.displayName == pickUpLocation) {%> selected <% } %>></option> 
+				<% }%> 
+				<!-- <option value="Marathahalli"></option> 
+				<option value="Indhira Nagar "></option> 
+				<option value="Koramangala"></option>  -->
+			</datalist> 
+			<input type="date" id="pick-up-date" name="startDate" value="<%=startDate%>">
+			<select  name="duration" >
+			  <option value="1" <% if(duration == "1") { %> selected <%}%> >1 month</option>
+			  <option value="2" <% if(duration == "2") { %> selected <%}%> >2 months</option>
+			  <option value="3" <% if(duration == "3") { %> selected <%}%> >3 months</option>
+			  <option value="4" <% if(duration == "4") { %> selected <%}%> >4 months</option>
 			</select>
 			<button class="submit">Modify</button>
 		</fieldset>
@@ -36,11 +45,11 @@
 </div>
 <form action="/checkout" method='POST'>
 	<button type="submit">Select Car</button>
-	<input type="hidden" name="modelId" value=<%=modelDetail._id%>>
-	<input type="hidden" name="vehiclesInUse" value=<%=vehiclesInUse%>>
-	<input type="hidden" name="startDate" value=<%=startDate%>>
-	<input type="hidden" name="pickUpLocation" value=<%=pickUpLocation%>>
-	<input type="hidden" name="duration" value=<%=duration%>>
+	<input type="hidden" name="modelId" value="<%=modelDetail.name%>">
+	<input type="hidden" name="vehiclesInUse" value="<%=vehiclesInUse%>">
+	<input type="hidden" name="startDate" value="<%=startDate%>">
+	<input type="hidden" name="pickUpLocation" value="<%=pickUpLocation%>">
+	<input type="hidden" name="duration" value="<%=duration%>">
 </form>
 <a href="">View More Information</a>
 <% }} %>

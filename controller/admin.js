@@ -37,25 +37,24 @@ exports.getEditCar = (req, res) => {
 }
 
 exports.postAddCar = (req, res) => {
-	const carName = req.body.carModel;
+	const carModelName = req.body.carModel;
 	const registrationNumber = req.body.registrationNumber;
 	const carModelYear = req.body.carModelYear;
 	const procuredOn = req.body.procuredOn;
-	const nextServiceDue = req.body.nextServiceDue;
-	const lastServiceDate = req.body.lastServiceDate;
-
+	
 	const addCar = new car.carSchema({
-		carName: carName, 
+		carModelName: carModelName, 
 		registrationNumber: registrationNumber, 
 		carModelYear: carModelYear,
 		procuredOn: procuredOn
 		// nextServiceDue: nextServiceDue,
 		// lastServiceDate: lastServiceDate
 	});
-	
+
 	addCar.save((err) => {
-		try {	
+		try {
 			if(err) {
+				console.log(err);	
 				car.modelSchema.find((err, result) => {
 					if(err){
 						console.log(err);
@@ -65,10 +64,12 @@ exports.postAddCar = (req, res) => {
 				})
 				// res.render("addCar", {displayMessage: true, message: err, model: model.modelDetails});
 			} else {
+
 				car.modelSchema.find((err, result) => {
 					if(err){
 						console.log(err);
 					} else {
+						console.log(result);
 						// res.render("addCar", {displayMessage: true, message: err, model: result});
 						res.render("addCar", {displayMessage: true, message: 'Car added successfully!', model: result});
 					}
@@ -195,6 +196,7 @@ exports.getAddLocation = (req, res) => {
 
 exports.postAddLocation = (req, res) => {
 	const location = req.body.location;
+	const displayName = req.body.displayName;
 	const addressLine1 = req.body.addressLine1;
 	const addressLine2 = req.body.addressLine2;
 	const addressLine3 = req.body.addressLine3;
@@ -206,6 +208,7 @@ exports.postAddLocation = (req, res) => {
 
 	const addLocation = new locationSchema({
 		location: location,
+		displayName: displayName,
 		addressLine1: addressLine1,
 		addressLine2: addressLine2,
 		addressLine3: addressLine3,

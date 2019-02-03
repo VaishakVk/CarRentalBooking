@@ -7,6 +7,7 @@ const coupons = require(path.join(__dirname, '../', 'models', 'offer.js'));
 
 exports.getHome = (req, res) => {
 	locationSchema.find((err, result) => {
+		// console.log(result);
 		if(err) {
 			console.log(err);
 		} else {
@@ -16,32 +17,51 @@ exports.getHome = (req, res) => {
 }
 
 exports.postBooking = (req, res) => {
-	const pickUpLocation = req.body.location;
+	const pickUpLocation = req.body.pickUpLocation;
 	const startDateReq = req.body.startDate;
 	const duration = req.body.duration;
 	var vehiclesInUse = []
-
 	const startDate = new Date(startDateReq);
 	const startDateTransf = new Date(startDateReq);
-	const endDate = new Date(startDateTransf.setMonth(startDateTransf.getMonth() + duration));
+			console.log(startDateReq, startDateTransf.getMonth() , duration, pickUpLocation);
 
+	const endDate = new Date(startDateTransf.setMonth(startDateTransf.getMonth() + Number(duration)));
+	var locations;
 	const startDateNumber = Math.round(startDate.getTime()/86400000);
 	const endDateNumber = Math.round(endDate.getTime()/86400000);
-	console.log(startDateReq);
+
+	locationSchema.find((err, result) => {
+		// console.log(result);
+		if(err) {
+			console.log(err);
+		} else {
+			locations = result;
+		}
+	})
+
 	book.calendarSchema.find({"date": {"$gte":startDateNumber, "$lte": endDateNumber}}, (err, result) => {
 		if(err) {
 			console.log(err);
 		} else {
 			for(i=0; i<result.length; i++) {
-				vehiclesInUse = vehiclesInUse.concat(result[i].modelId);
+				vehiclesInUse = vehiclesInUse.concat(result[i].vehicleId);
 			}
 			vehiclesInUse = [...new Set(vehiclesInUse)];
-										console.log(vehiclesInUse)
-			cars.modelSchema.find({"_id": {"$nin": vehiclesInUse}}, (err, result) => {
+
+			cars.carSchema.distinct("carModelName", {"registrationNumber": {"$nin": vehiclesInUse}}, (err, carsNotInUse) => {
+				// console.log(vehiclesInUse, carsNotInUse);
 				if(err) {
 					console.log(err);
 				} else {
-					res.render("book", {model: result,pickUpLocation: pickUpLocation, startDate: startDateReq, duration:duration, vehiclesInUse: vehiclesInUse} )
+					cars.modelSchema.find({"name": {"$in": carsNotInUse}}, (err, result) => {
+						res.render("book", {model: result,
+											pickUpLocation: pickUpLocation, 
+											startDate: startDateReq, 
+											duration:duration, 
+											vehiclesInUse: vehiclesInUse,
+											locations: locations
+									})
+					})
 				}	
 			})
 		}
@@ -79,12 +99,12 @@ exports.getCheckout = (req, res) => {
 	const couponCode = req.body.couponCode;
 	var discount = req.body.discount;
 	const modifiedPrice = req.body.modifiedPrice;
-	// console.log(startDate)
+	// console.log(pickUpLocation)
 	if(discount == undefined) {
 		discount = 0;
 	}
 	
-	cars.modelSchema.findById(modelId, (err, result) => {
+	cars.modelSchema.findOne({name: modelId}, (err, result) => {
 		if(err) {
 			console.log(err);
 		} else {
@@ -104,7 +124,7 @@ exports.getCheckout = (req, res) => {
 }
 exports.postConfirm = (req, res) => {
 	const startDateReq = req.body.startDate;
-	var vehiclesInUse = req.body.vehiclesInUse;
+	var vehiclesInUse = [];
 	const modelId = req.body.modelId;
 	const pickUpLocation = req.body.pickUpLocation;
 	const duration = req.body.duration;
@@ -113,64 +133,82 @@ exports.postConfirm = (req, res) => {
 	const modifiedPrice = req.body.modifiedPrice;
 	const startDate = new Date(startDateReq);
 	const startDateTransf = new Date(startDateReq);
-	const endDate = new Date(startDateTransf.setMonth(startDateTransf.getMonth() + duration));
-
+	// console.log(startDateTransf, startDateReq, startDateTransf.getMonth() + duration, startDateTransf.getMonth());
+	const endDate = new Date(startDateTransf.setMonth(startDateTransf.getMonth() + parseInt(duration, 10)));
+	// console.log(startDate, endDate, vehiclesInUse)
 	const startDateNumber = Math.round(startDate.getTime()/86400000);
 	const endDateNumber = Math.round(endDate.getTime()/86400000);
 
 	const date = new Date();
 	const orderNumber = date.getDate().toString() + date.getMonth().toString() + date.getYear().toString() + date.getHours().toString() + date.getMinutes().toString() + date.getMilliseconds().toString();
 	// console.log(startDateNumber, endDateNumber, startDateReq)
-
-	for(i=startDateNumber; i<=endDateNumber; i++) {
-		var calendarEntry = {
-			$push: {modelId: orderNumber}
-		}
-
-		book.calendarSchema.updateOne(
-		    {date: i}, // find a document with that filter
-		    calendarEntry, // document to insert when nothing was found
-		    {upsert: true}, // options
-		    function (err, result) { // callback
-		        if (err) {
-		            console.log(err);// handle error
-		        }
-		    });
-	}
- 	console.log(modelId, vehiclesInUse);
-	cars.carSchema.findOne({modelId: modelId, _id: {"$nin": vehiclesInUse}}, (err, result) => {
-		console.log(result);
-		var carAlloted = result.registrationNumber;
-		const addOrder = book.orderSchema({
-			orderDate: new Date().toString(),
-			startDate: startDate,
-			startDateNumber: startDateNumber,
-			endDateNumber: endDateNumber,
-			duration: duration,
-			status: 'CONFIRMED',
-			totalAmount: modifiedPrice,
-			orderNumber: orderNumber,
-			vehicleAlloted: carAlloted,
-			location: pickUpLocation
-		});
-
-		addOrder.save((err, result) => {
-			if(err) {
-				console.log(err);
-			} else {
-				res.render("confirm", {modelDetail: result,
-						pickUpLocation: pickUpLocation,
-						startDate: startDate, 
-						duration:duration, 
-						vehiclesInUse: vehiclesInUse, 
-						couponCode: couponCode,
-						modifiedPrice: (result.pricePerHour * duration) - discount,
-						message: "",
-						discount: discount
-				})
+	book.calendarSchema.find({"date": {"$gte":startDateNumber, "$lte": endDateNumber}}, (err, result) => {
+		if(err) {
+			console.log(err);
+		} else {
+			// console.log(result); 
+			for(i=0; i<result.length; i++) {
+				// console.log('Loop', result[i].vehicleId)
+				vehiclesInUse = vehiclesInUse.concat(result[i].vehicleId);
 			}
-		})	
+			// console.log(vehiclesInUse);
+			vehiclesInUse = [...new Set(vehiclesInUse)];
+			// console.log(vehiclesInUse)
+			cars.carSchema.findOne({"carModelName": modelId, "registrationNumber": {"$nin": vehiclesInUse}}, (err, result) => {
+				// console.log(result);
+				var carAlloted = result.registrationNumber;
+				const addOrder = book.orderSchema({
+					orderDate: new Date().toString(),
+					startDate: startDate,
+					startDateNumber: startDateNumber,
+					endDateNumber: endDateNumber,
+					duration: duration,
+					status: 'CONFIRMED',
+					totalAmount: modifiedPrice,
+					orderNumber: orderNumber,
+					vehicleAlloted: carAlloted,
+					pickUpLocation: pickUpLocation
+				});
+
+				addOrder.save((err, OrderResult) => {
+					if(err) {
+						console.log(err);
+					} else {
+						res.render("confirm", {modelDetail: result,
+								pickUpLocation: pickUpLocation,
+								startDate: startDate, 
+								duration:duration, 
+								vehiclesInUse: vehiclesInUse, 
+								couponCode: couponCode,
+								modifiedPrice: modifiedPrice,
+								message: "",
+								discount: discount
+						})
+						for(i=startDateNumber; i<=endDateNumber; i++) {
+							var calendarEntry = {
+								$push: {vehicleId: result.registrationNumber}
+							}
+
+							book.calendarSchema.updateOne(
+							    {date: i}, // find a document with that filter
+							    calendarEntry, // document to insert when nothing was found
+							    {upsert: true}, // options
+							    function (err, result) { // callback
+							        if (err) {
+							            console.log(err);// handle error
+							        }
+							    });
+						}
+					}
+				})	
+			})
+		}
 	})
+
+ 	// console.log(modelId, vehiclesInUse);
+	
+						// console.log("success");
+
 }
 
 exports.postValdiateCoupon = (req, res) => {
@@ -187,8 +225,8 @@ exports.postValdiateCoupon = (req, res) => {
 	var basePrice;
 	var operator;
 	var couponValue;
-
-	cars.modelSchema.findById(modelId, (err, modelResult) => {
+	// console.log('duration', duration);
+	cars.modelSchema.findOne({name: modelId}, (err, modelResult) => {
 		if(err) {
 			console.log(err);
 		} else {
@@ -209,10 +247,12 @@ exports.postValdiateCoupon = (req, res) => {
 					} else {
 						if (offerResult.active !== "Active") {
 							message = "Coupon is not active."
-						} else {
+						} else {		
+
 							basePrice = modelResult.pricePerHour * duration;
 							operator = offerResult.operator;
 							couponValue = offerResult.couponValue;
+							// console.log(basePrice, operator, couponValue, modelResult.pricePerHour,modelResult)
 							if(operator === "Lumpsum") {
 								discount = couponValue;
 								modifiedPrice -= couponValue;

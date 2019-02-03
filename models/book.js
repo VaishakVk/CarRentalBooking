@@ -6,7 +6,7 @@ const calendarSchema = new schema({
 		type: Number,
 		required: true
 	},
-	vehicleId: [{type: Number}],
+	vehicleId: [{type: String}],
 })
 
 const orderSchema = new schema({
