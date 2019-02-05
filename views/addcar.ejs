@@ -4,22 +4,26 @@
 <% } %>
 <form action="/admin/addcar" method="POST">
 	<label for="carModel">Car Model</label>
-	<select name="carModel">
+	<select name="carModel" required>
 		<% for(let modelDetail of model) { %>
 			<option value="<%= modelDetail.name %>"><%= modelDetail.name %></option>
 		<% } %>
-	</select>			
+	</select>	
+	<br>		
 	<label for="registrationNumber">Registration Number</label>
-	<input type="text" name="registrationNumber" id="registrationNumber" autocomplete="off">
+	<input type="text" name="registrationNumber" id="registrationNumber" autocomplete="off" required>
+	<br>
 	<label for="carModelYear">Car Model Year</label>
-	<select name="carModelYear">
+	<select name="carModelYear" required>
 		<% const dt = new Date(); %>
 		<% for(let i=1952; i<=dt.getFullYear(); i++) { %>
 			<option value="<%= i %>" <% if (i==dt.getFullYear()) { %> selected <%}%>><%= i %></option>
 		<% } %>
 	</select>			
+	<br>
 	<label for="procuredOn">Procured On</label>
-	<input type="date" id="procuredOn" name="procuredOn">
+	<input type="date" id="procuredOn" name="procuredOn" required max=<%=dt.toISOString().split('T')[0]%>>
+	<!-- <%dt.getFullYear()%>-<%dt.getMonth()%>-<%dt.getDate()%> -->
 	<!-- <label for="nextServiceDue">Next Service Due</label>
 	<input type="date" id="nextServiceDue" name="nextServiceDue">
 	<label for="lastServiceDate">last Serviced On</label>

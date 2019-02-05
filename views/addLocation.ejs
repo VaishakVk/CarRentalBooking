@@ -4,25 +4,35 @@
 <% } %>
 <form action="/admin/addlocation" method="POST">
 	<label for="location">Location</label>
-	<input type="text" name="location" id="location" autocomplete="off">
+	<input type="text" name="location" id="location" autocomplete="off" required>
+	<br>
 	<label for="displayName">Display Name</label>
-	<input type="text" name="displayName" id="displayName" autocomplete="off">
+	<input type="text" name="displayName" id="displayName" autocomplete="off" required>
+	<br>
 	<label for="addressLine1">Address Line 1</label>
-	<input type="text" name="addressLine1" id="addressLine1" autocomplete="off">
+	<input type="text" name="addressLine1" id="addressLine1" autocomplete="off" required>
+	<br>
 	<label for="addressLine2">Address Line 2</label>
 	<input type="text" name="addressLine2" id="addressLine2" autocomplete="off">
+	<br>
 	<label for="addressLine3">Address Line 3</label>
 	<input type="text" name="addressLine3" id="addressLine3" autocomplete="off">
+	<br>
 	<label for="city">City</label>
-	<input type="text" name="city" id="city" autocomplete="off">
+	<input type="text" name="city" id="city" autocomplete="off" required>
+	<br>
 	<label for="state">State</label>
-	<input type="text" name="state" id="state" autocomplete="off">
+	<input type="text" name="state" id="state" autocomplete="off" required>
+	<br>
 	<label for="country">Country</label>
-	<input type="text" name="country" id="country" autocomplete="off">
+	<input type="text" name="country" id="country" autocomplete="off" required>
+	<br>
 	<label for="pincode">Pincode</label>
-	<input type="text" name="pincode" id="pincode" autocomplete="off">
+	<input type="text" name="pincode" id="pincode" autocomplete="off" required>
+	<br>
 	<label for="contactNumber">Contact</label>
-	<input type="text" name="contactNumber" id="contactNumber" autocomplete="off">
+	<input type="text" name="contactNumber" id="contactNumber" autocomplete="off" required>
+	<br>
 	<button type="submit">Add Location</button>
 </form>
 <%- include partials/footer.ejs %> 

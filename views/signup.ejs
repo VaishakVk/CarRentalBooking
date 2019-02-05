@@ -1,18 +1,28 @@
 <%- include partials/header.ejs %>
 <div>
+	<h1>Sign Up</h1>
+	<% if(displayMessage) {%>
+	<p><%= displayMessage%></p>
+	<%}%>
 	<form action="/signup" method="POST">
 		<label for="firstName">First Name</label>
-		<input type="text" name="firstName" id="firstName">
+		<input type="text" name="firstName" id="firstName" required>
+		<br>
 		<label for="lastName">Last Name</label>
-		<input type="text" name="lastName" id="lastName">
+		<input type="text" name="lastName" id="lastName" required>
+		<br>
 		<label for="dateOfBirth">Date of Birth</label>
-		<input type="date" id="dateOfBirth" name="dateOfBirth">
+		<input type="date" id="dateOfBirth" name="dateOfBirth" required>
+		<br>
 		<label for="email">Email</label>
-		<input type="text" name="email" id="email">
+		<input type="text" name="email" id="email" required>
+		<br>
 		<label for="password">Password</label>
-		<input type="password" name="password" id="password" autocomplete="off">
+		<input type="password" name="password" id="password" autocomplete="off" required>
+		<br>
 		<label for="confirmPassword">Confirm Password</label>
-		<input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off">
+		<input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required>
+		<br>
 		<button type="submit">SignUp</button>
 	</form>
 

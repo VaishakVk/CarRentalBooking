@@ -1,11 +1,15 @@
 <% include partials/header %>
 <h1 class="company-name">Rent a Car</h1>
 <section class="book-now">
+	<% if(displayMessage) {%>
+	<p><%= displayMessage%></p>
+	<%}%>
 	<form action="/book" class="book-form" method="POST">
 		<fieldset>
 			<legend>Book now</legend>
 			<!-- <input type="text" id="pick-up-location" name="location" placeholder="Enter your pickup location" autocomplete="off"> -->
-			<input type="text" list="datalist" name = "pickUpLocation" autocomplete="off"> 
+			<label for="pickUpLocation">Location</label>
+			<input type="text" list="datalist" name = "pickUpLocation" id="pickUpLocation" autocomplete="off" required> 
 			<datalist id="datalist"> 
 				<% for(let i of location) {%>
 				<option value="<%= i.displayName%>"></option> 
@@ -14,13 +18,18 @@
 				<option value="Indhira Nagar "></option> 
 				<option value="Koramangala"></option>  -->
 			</datalist> 
-			<input type="date" id="pick-up-date" name="startDate">
-			<select name="duration">
+			<br>
+			<label for="startDate">Pick Up Date</label>
+			<input type="date" id="pick-up-date" name="startDate" min=<%=new Date().toISOString().split('T')[0]%> required>
+			<br>
+			<label for="duration">Duration</label>
+			<select name="duration" required>
 			  <option value="1">1 month</option>
 			  <option value="2">2 months</option>
 			  <option value="3">3 months</option>
 			  <option value="4">4 months</option>
 			</select>
+			<br>
 			<button class="submit">Check Cars</button>
 		</fieldset>
 	</form>

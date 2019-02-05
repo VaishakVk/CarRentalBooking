@@ -4,27 +4,34 @@
 <% } %>
 <form action="/offers/addoffer" method="POST">
 	<label for="offerName">Offer</label>
-	<input type="text" name="offerName" id="offerName" autocomplete="off">
+	<input type="text" name="offerName" id="offerName" autocomplete="off" required>
+	<br>
 	<label for="offerCode">Offer Code</label>
-	<input type="text" name="offerCode" id="offerCode" autocomplete="off">
+	<input type="text" name="offerCode" id="offerCode" autocomplete="off" required>
+	<br>
 	<label for="couponCode">Coupon Code</label>
-	<input type="text" name="couponCode" id="couponCode" autocomplete="off">
+	<input type="text" name="couponCode" id="couponCode" autocomplete="off" required>
+	<br>
 	<label for="couponValue">Coupon Value</label>
-	<input type="text" name="couponValue" id="couponValue" autocomplete="off">
+	<input type="text" name="couponValue" id="couponValue" autocomplete="off" required>
+	<br>
 	<label for="active">active</label>
-	<select name="active">
+	<select name="active" required>
 		<% ["Active", "Inactive"].forEach(function(element) { %>
 			<option value="<%= element %>"><%= element %></option>
 		<% }) %>
 	</select>
+	<br>
 	<label for="operator">Operator</label>
-	<select name="operator">
+	<select name="operator" required>
 		<% ["Lumpsum", "Percentage"].forEach(function(element) { %>
 			<option value="<%= element %>"><%= element %></option>
 		<% }) %>
 	</select>
+	<br>
 	<label for="validTill">Valid Till</label>
-	<input type="date" id="validTill" name="validTill">			
+	<input type="date" id="validTill" name="validTill" required>			
+	<br>
 	<button type="submit">Add Offer</button>
 </form>
 <a href="/offers">All Offers</a>

@@ -4,33 +4,42 @@
 <% } %>
  <form action="/admin/<% if (purpose == "edit") { %>editmodel/<%=model._id%><% } else { %>addmodel<% } %>" method="POST">
 	<label for="name">Car Model</label>
-	<input type="text" name="name" id="name" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.name%><% } %>">
+	<input type="text" name="name" id="name" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.name%><% } %>" required>
+	<br>
 	<label for="displayName">Display Name</label>
-	<input type="text" name="displayName" id="displayName" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.displayName%><% } %>">
+	<input type="text" name="displayName" id="displayName" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.displayName%><% } %>" required>
+	<br>
 	<label for="carClass">Class</label>
-	<select name="carClass" id="carClass">
+	<select name="carClass" id="carClass" required>
 		<% ['Bike-upto 150cc', 'Bike-above 150cc', 'Scooter', 'Car-Hatchback', 'Car-Sedan', 'Car-SUV'].forEach(function(element) { %>
 			<option value="<%= element %>" <% if ((purpose == "edit" || purpose == "add-edit") && element == model.modelClass) { %>selected <% } %>><%= element %></option>
 		<% }) %>
 	</select>
+	<br>
 	<label for="engineCC">Engine(cc)</label>
-	<input type="text" name="engineCC" id="engineCC" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit" ) { %><%=model.engineCC%><% } %>">
+	<input type="text" name="engineCC" id="engineCC" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit" ) { %><%=model.engineCC%><% } %>" required>
+	<br>
 	<label for="enginePower">Engine Power(bhp)</label>
-	<input type="text" name="enginePower" id="enginePower" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.enginePower%><% } %>">
+	<input type="text" name="enginePower" id="enginePower" autocomplete="off" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.enginePower%><% } %>" required>
+	<br>
 	<label for="pricePerHour">Price(per hour)</label>
-	<input type="text" id="pricePerHour" name="pricePerHour" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.pricePerHour%><% } %>">
+	<input type="text" id="pricePerHour" name="pricePerHour" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.pricePerHour%><% } %>" required>
+	<br>
 	<label for="seating">Seating Capacity</label>
-	<input type="text" id="seating" name="seating" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.seating%><% } %>">
+	<input type="text" id="seating" name="seating" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.seating%><% } %>" required>
+	<br>
 	<label for="imageURL">Image URL</label>
-	<input type="text" id="imageURL" name="imageURL" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.imageURL%><% } %>">			
+	<input type="text" id="imageURL" name="imageURL" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.imageURL%><% } %>" required>			
+	<br>
 	<label for="transmission">Transmission</label>
-	<select name="transmission" id="transmission">
+	<select name="transmission" id="transmission" required>
 		<% ['Automatic', 'Manual', 'Semi Automatic'].forEach(function(element) { %>
 			<option value="<%= element %>" <% if ((purpose == "edit" || purpose == "add-edit") && element == model.transmission) { %>selected <% } %>><%= element %></option>
 		<% }) %>
 	</select>
-	<label for="mileage">Mileage</label>
-	<input type="text" id="mileage" name="mileage" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.mileage%><% } %>">	
+	<br>
+	<label for="mileage" >Mileage</label>
+	<input type="text" id="mileage" name="mileage" value="<% if (purpose == "edit" || purpose == "add-edit") { %><%=model.mileage%><% } %>" required>	
 	<% if (purpose == "edit" || purpose == "add-edit") { %>
                 <input type="hidden" value="<%= model._id %>" name="Id">
     <% } %>		
