@@ -13,7 +13,7 @@ exports.getHome = (req, res) => {
 			}
 		})
 	} catch(err) {
-		
+
 		console.log(err)
 		res.render('500');
 	}
@@ -25,7 +25,7 @@ exports.getAddCar = (req, res) => {
 			if(err){
 				console.log(err);
 			} else {
-				res.render("addCar", {displayMessage: false, message: '', model: result, purpose: 'add'});
+				res.render("addcar", {displayMessage: false, message: '', model: result, purpose: 'add'});
 			}
 		})
 	} catch(err) {
@@ -41,7 +41,7 @@ exports.getEditCar = (req, res) => {
 			if(err){
 				console.log(err);
 			} else {
-				res.render("addCar", {displayMessage: false, message: '', model: result, purpose: 'edit'});
+				res.render("addcar", {displayMessage: false, message: '', model: result, purpose: 'edit'});
 			}
 		})
 	} catch(err) {
@@ -73,7 +73,7 @@ exports.postAddCar = (req, res) => {
 					if(err){
 						console.log(err);
 					} else {
-						res.render("addCar", {displayMessage: true, message: err, model: result});
+						res.render("addcar", {displayMessage: true, message: err, model: result});
 					}
 				})
 				// res.render("addCar", {displayMessage: true, message: err, model: model.modelDetails});
@@ -85,7 +85,7 @@ exports.postAddCar = (req, res) => {
 					} else {
 						console.log(result);
 						// res.render("addCar", {displayMessage: true, message: err, model: result});
-						res.render("addCar", {displayMessage: true, message: 'Car added successfully!', model: result});
+						res.render("addcar", {displayMessage: true, message: 'Car added successfully!', model: result});
 					}
 				})
 				// res.render("addCar", {displayMessage: true, message: 'Car added successfully!', model: model.modelDetails});
