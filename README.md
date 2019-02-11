@@ -12,9 +12,9 @@ You can use the coupon **CARNEW** to get a discout of 20%
 ## Available admin routes
 Since this is a demo page, no route protection is added. Any user can access the below links.
 
-/admin/addcar - to add a new car
-/admin/addmodel - to add a new model
-/admin/addlocation - to add a new location
+/admin/addcar - to add a new car  
+/admin/addmodel - to add a new model  
+/admin/addlocation - to add a new location  
 
 Please do signup/login before making a booking.
 
