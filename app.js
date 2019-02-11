@@ -18,8 +18,7 @@ const authRoute = require(path.join(__dirname, "routes", "authRoute.js"))
 const pageNotFoundRoute = require(path.join(__dirname, "routes", "error.js"))
 require('dotenv').config();
 
-console.log(process.env.MONGO_USER);
-const MONGODB_URI  = "mongodb+srv://"+process.env.MONGO_USER+ ":Hello123@clusterdb-ohjmw.mongodb.net/CarRentalDB"
+const MONGODB_URI  = "mongodb+srv://"+process.env.MONGO_USER+ ":" + process.env.MONGO_PASSWORD + "@clusterdb-ohjmw.mongodb.net/" + process.env.MONGO_DEFAULT_DATABASE
 const store = new mongoDbStore({uri: MONGODB_URI,
 								collection: "session"});
 app.set('view engine', 'ejs');
