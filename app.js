@@ -1,5 +1,5 @@
 const path = require("path");
-
+const port = 3000;
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
@@ -47,10 +47,10 @@ app.use(pageNotFoundRoute);
 
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true}, err => {
 	if(err) {
-		console.log('Error connecting to DB');
+		console.log('Failed connecting database');
 	} else {
-		app.listen(process.env.PORT || 3000, function() {
-			console.log('Listening on port 3000');
+		app.listen(process.env.PORT || port, function() {
+			console.log(`Listening on port ${port}`);
 		});		
 	}
 })
